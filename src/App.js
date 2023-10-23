@@ -2,7 +2,7 @@ import './App.css';
 
 import Button from './Button';
 
-import {useState} from 'react' // hook
+import {useState, useEffect} from 'react' // hook
 
 const App = () => {
 
@@ -34,6 +34,14 @@ const App = () => {
 
   const [number, setNumber] = useState(10)
 
+  useEffect(() => {
+    console.log('number güncel', number)
+  }, [number])
+
+  useEffect(() => {
+    console.log('constructor')
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -55,11 +63,9 @@ const App = () => {
         <div>
           <Button title="Arttır" onClick={() => {
             setNumber(number+1)
-            console.log('number', number)
           }} />
           <Button title="Eksilt" onClick={() => {
             setNumber(number-1)
-            console.log('number', number)
           }} />
         </div>
         {
