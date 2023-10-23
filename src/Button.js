@@ -1,12 +1,13 @@
 const Button = ({
-    title
+    title,
+    onClick
 }) => {
 
     // Javascript ES6
     // Destructuring
 
     return (
-        <button>{title}</button>
+        <button onClick={onClick}>{title}</button>
     )
 }
 

@@ -2,16 +2,37 @@ import './App.css';
 
 import Button from './Button';
 
+import {useState} from 'react' // hook
+
 const App = () => {
 
   const userInfo = {
     firstName: "Kazım",
-    lastName: "Etiksan"
-  }
+    lastName: "Etiksan",
+    age: 33
+  } // JSON Object
 
-  const someMethod = () => {
+  const userList = [{
+    firstName: "Kazım",
+    lastName: "Etiksan",
+    age: 33
+  },{
+    firstName: "Mert",
+    lastName: "Şener",
+    age: 32
+  },{
+    firstName: "Elif",
+    lastName: "Yavuz",
+    age: 43
+  }]
 
-  }
+  // let number = 10
+
+  // const stateArray = useState(10)
+  // const getter = stateArray[0]
+  // const setter = stateArray[1]
+
+  const [number, setNumber] = useState(10)
 
   return (
     <div className="App">
@@ -19,7 +40,35 @@ const App = () => {
         <div>
           Merhaba {userInfo.firstName}
         </div>
-        <Button title="Hello" /> {/* JSX - Prop */}
+        <div>
+        {
+          // userList.map((item, index) => {
+          //   return (
+          //     <div key={index}>{item.firstName} {item.lastName}</div>
+          //   )
+          // })
+        }
+        </div>
+        <div>
+          Number anlık değer: {number}
+        </div>
+        <div>
+          <Button title="Arttır" onClick={() => {
+            setNumber(number+1)
+            console.log('number', number)
+          }} />
+          <Button title="Eksilt" onClick={() => {
+            setNumber(number-1)
+            console.log('number', number)
+          }} />
+        </div>
+        {
+          // userInfo.age > 40 ? (
+          //   <div>Kullanıcı 40 yaşından büyük</div>
+          // ) : (
+          //   <div>Kullanıcı 40 yaşından küçük</div>
+          // )
+        }
       </header>
     </div>
   );
