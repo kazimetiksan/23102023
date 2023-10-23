@@ -39,6 +39,14 @@ const App = () => {
     console.log(userInfo)
   }, [userInfo])
 
+  const setInput = (key, value) => {
+
+    setUserInfo({
+      ...userInfo,
+      [key]: value
+    })
+  }
+
   return (
     <div style={{
       margin: 50
@@ -69,30 +77,22 @@ const App = () => {
       <div>
         <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
 
-          const firstName = e.target.value
-          setUserInfo({
-            ...userInfo,
-            firstName
-          })
+          setInput('firstName', e.target.value)
+          
+          // const firstName = e.target.value
+          // setUserInfo({
+          //   ...userInfo,
+          //   firstName
+          // })
 
         }} />
         <Form.Control placeholder='Soyad' value={userInfo.lastName} onChange={(e) => {
 
-          const lastName = e.target.value
-          setUserInfo({
-            ...userInfo,
-            lastName
-          })
-
+          setInput('lastName', e.target.value)
         }} />
         <Form.Control placeholder='Yaş' value={userInfo.age} onChange={(e) => {
 
-          const age = e.target.value
-          setUserInfo({
-            ...userInfo,
-            age
-          })
-
+          setInput('age', e.target.value)
         }} />
       </div>
     </div>
