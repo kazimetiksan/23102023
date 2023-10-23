@@ -2,15 +2,14 @@ import './App.css';
 
 import Button from './Button';
 
-import {useState, useEffect} from 'react' // hook
+import {useState, useEffect} from 'react'
+
+import {
+  Form,
+  Table
+} from 'react-bootstrap'
 
 const App = () => {
-
-  const userInfo = {
-    firstName: "Kazım",
-    lastName: "Etiksan",
-    age: 33
-  } // JSON Object
 
   const userList = [{
     firstName: "Kazım",
@@ -26,55 +25,38 @@ const App = () => {
     age: 43
   }]
 
-  // let number = 10
-
-  // const stateArray = useState(10)
-  // const getter = stateArray[0]
-  // const setter = stateArray[1]
-
-  const [number, setNumber] = useState(10)
-
-  useEffect(() => {
-    console.log('number güncel', number)
-  }, [number])
-
-  useEffect(() => {
-    console.log('constructor')
-  }, [])
-
   return (
     <div className="App">
       <header className="App-header">
         <div>
-          Merhaba {userInfo.firstName}
+          <Table>
+            <thead>
+              <th>#</th>
+              <th>Ad</th>
+              <th>Soyad</th>
+              <th>Yaş</th>
+            </thead>
+            <tbody>
+            {
+              userList.map((item, index) => {
+                return (
+                  <tr>
+                    <td>{index+1}</td>
+                    <td>{item.firstName}</td>
+                    <td>{item.lastName}</td>
+                    <td>{item.age}</td>
+                  </tr>
+                )
+              })
+            }
+            </tbody>
+          </Table>
         </div>
-        <div>
-        {
-          // userList.map((item, index) => {
-          //   return (
-          //     <div key={index}>{item.firstName} {item.lastName}</div>
-          //   )
-          // })
-        }
-        </div>
-        <div>
-          Number anlık değer: {number}
-        </div>
-        <div>
-          <Button title="Arttır" onClick={() => {
-            setNumber(number+1)
-          }} />
-          <Button title="Eksilt" onClick={() => {
-            setNumber(number-1)
-          }} />
-        </div>
-        {
-          // userInfo.age > 40 ? (
-          //   <div>Kullanıcı 40 yaşından büyük</div>
-          // ) : (
-          //   <div>Kullanıcı 40 yaşından küçük</div>
-          // )
-        }
+      <div>
+        <Form.Control placeholder='Ad' />
+        <Form.Control placeholder='Soyad' />
+        <Form.Control placeholder='Yaş' />
+      </div>
       </header>
     </div>
   );
