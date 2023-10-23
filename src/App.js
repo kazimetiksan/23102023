@@ -13,7 +13,7 @@ import Row from './Row';
 
 const App = () => {
 
-  const userList = [{
+  const [userList, setUserList] = useState([{
     firstName: "Kazım",
     lastName: "Etiksan",
     age: 33
@@ -25,7 +25,7 @@ const App = () => {
     firstName: "Elif",
     lastName: "Yavuz",
     age: 43
-  }]
+  }])
 
   const templateInfo = {
     firstName: "",
@@ -93,6 +93,16 @@ const App = () => {
         <Form.Control placeholder='Yaş' value={userInfo.age} onChange={(e) => {
 
           setInput('age', e.target.value)
+        }} />
+        <Button title="Ekle" onClick={() => {
+
+          setUserList([
+            ...userList,
+            userInfo
+          ])
+
+          setUserInfo(templateInfo)
+
         }} />
       </div>
     </div>

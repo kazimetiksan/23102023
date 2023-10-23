@@ -1,3 +1,7 @@
+import {
+    Button as RBButton
+} from 'react-bootstrap'
+
 const Button = ({
     title,
     onClick
@@ -7,7 +11,7 @@ const Button = ({
     // Destructuring
 
     return (
-        <button onClick={onClick}>{title}</button>
+        <RBButton onClick={onClick}>{title}</RBButton>
     )
 }
 
