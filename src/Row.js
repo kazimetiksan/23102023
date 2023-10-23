@@ -1,6 +1,9 @@
+import Button from "./Button"
+
 const Row = ({
     item,
-    index
+    index,
+    onUpdate
 }) => {
 
     return (
@@ -9,6 +12,9 @@ const Row = ({
             <td>{item.firstName}</td>
             <td>{item.lastName}</td>
             <td>{item.age}</td>
+            <td>
+                <Button title="Güncelle" onClick={onUpdate} />
+            </td>
         </tr>
     )
 }

@@ -35,6 +35,8 @@ const App = () => {
 
   const [userInfo, setUserInfo] = useState(templateInfo)
 
+  const [updateIndex, setUpdateIndex] = useState(-1)
+
   useEffect(() => {
     console.log(userInfo)
   }, [userInfo])
@@ -67,6 +69,13 @@ const App = () => {
                     key={index}
                     item={item}
                     index={index}
+                    onUpdate={() => {
+
+                      setUserInfo(userList[index])
+                      setUpdateIndex(index)
+
+                      console.log(`${index} sıralı satır güncellenecek`)
+                    }}
                   />
                 )
               })
@@ -94,14 +103,41 @@ const App = () => {
 
           setInput('age', e.target.value)
         }} />
-        <Button title="Ekle" onClick={() => {
+        <Button variant='primary' title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-          setUserList([
-            ...userList,
-            userInfo
-          ])
+          // updateIndex kontrol
 
-          setUserInfo(templateInfo)
+          if (updateIndex === -1) {
+
+            // EKLE
+            setUserList([
+              ...userList,
+              userInfo
+            ])
+  
+            setUserInfo(templateInfo)
+          } else {
+
+            // GÜNCELLE
+
+            const newList = userList.map((item, index) => {
+
+              // updateIndex sırasında eleman değişikliği
+
+              if (updateIndex === index) {
+                return userInfo
+              }
+
+              return item
+            })
+
+            setUserList(newList)
+  
+            setUserInfo(templateInfo)
+
+            setUpdateIndex(-1)
+          }
+
 
         }} />
       </div>

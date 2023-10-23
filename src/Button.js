@@ -4,14 +4,15 @@ import {
 
 const Button = ({
     title,
-    onClick
+    onClick,
+    variant="secondary" // default value
 }) => {
 
     // Javascript ES6
     // Destructuring
 
     return (
-        <RBButton onClick={onClick}>{title}</RBButton>
+        <RBButton variant={variant} onClick={onClick}>{title}</RBButton>
     )
 }
 
