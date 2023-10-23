@@ -9,6 +9,8 @@ import {
   Table
 } from 'react-bootstrap'
 
+import Row from './Row';
+
 const App = () => {
 
   const userList = [{
@@ -24,6 +26,18 @@ const App = () => {
     lastName: "Yavuz",
     age: 43
   }]
+
+  const templateInfo = {
+    firstName: "",
+    lastName: "",
+    age: ""
+  }
+
+  const [userInfo, setUserInfo] = useState(templateInfo)
+
+  useEffect(() => {
+    console.log(userInfo)
+  }, [userInfo])
 
   return (
     <div style={{
@@ -41,12 +55,11 @@ const App = () => {
             {
               userList.map((item, index) => {
                 return (
-                  <tr>
-                    <td>{index + 1}</td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.age}</td>
-                  </tr>
+                  <Row
+                    key={index}
+                    item={item}
+                    index={index}
+                  />
                 )
               })
             }
@@ -54,9 +67,33 @@ const App = () => {
         </Table>
       </div>
       <div>
-        <Form.Control placeholder='Ad' />
-        <Form.Control placeholder='Soyad' />
-        <Form.Control placeholder='Yaş' />
+        <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
+
+          const firstName = e.target.value
+          setUserInfo({
+            ...userInfo,
+            firstName
+          })
+
+        }} />
+        <Form.Control placeholder='Soyad' value={userInfo.lastName} onChange={(e) => {
+
+          const lastName = e.target.value
+          setUserInfo({
+            ...userInfo,
+            lastName
+          })
+
+        }} />
+        <Form.Control placeholder='Yaş' value={userInfo.age} onChange={(e) => {
+
+          const age = e.target.value
+          setUserInfo({
+            ...userInfo,
+            age
+          })
+
+        }} />
       </div>
     </div>
   );
