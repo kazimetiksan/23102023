@@ -76,6 +76,15 @@ const App = () => {
 
                       console.log(`${index} sıralı satır güncellenecek`)
                     }}
+                    onRemove={() => {
+
+                      // index sıralı satır silinecek
+                      console.log(`${index} sıralı satır silinecek`)
+
+                      const newList = userList.filter((listItem, listIndex) => listIndex !== index)
+
+                      setUserList(newList)
+                    }}
                   />
                 )
               })
