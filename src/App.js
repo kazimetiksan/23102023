@@ -49,6 +49,14 @@ const App = () => {
     })
   }
 
+  const rowUpdate = (index) => {
+
+      setUserInfo(userList[index])
+      setUpdateIndex(index)
+
+      console.log(`${index} sıralı satır güncellenecek`)
+  }
+
   return (
     <div style={{
       margin: 50
@@ -71,10 +79,12 @@ const App = () => {
                     index={index}
                     onUpdate={() => {
 
-                      setUserInfo(userList[index])
-                      setUpdateIndex(index)
+                      rowUpdate(index)
 
-                      console.log(`${index} sıralı satır güncellenecek`)
+                      // setUserInfo(userList[index])
+                      // setUpdateIndex(index)
+
+                      // console.log(`${index} sıralı satır güncellenecek`)
                     }}
                     onRemove={() => {
 
