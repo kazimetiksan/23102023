@@ -11,6 +11,10 @@ import {
 
 import Row from './Row';
 
+import {
+  commonFunction
+} from './functions'
+
 const App = () => {
 
   const [userList, setUserList] = useState([{
@@ -50,6 +54,8 @@ const App = () => {
   }
 
   const rowUpdate = (index) => {
+
+      commonFunction(index)
 
       setUserInfo(userList[index])
       setUpdateIndex(index)
