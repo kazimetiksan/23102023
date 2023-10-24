@@ -67,6 +67,12 @@ const App = () => {
     console.log(`${index} sıralı satır güncellenecek`)
   }
 
+  const hideModal = () => {
+
+    setModalOn(false)
+    setRemoveIndex(-1)
+  }
+
   return (
     <div style={{
       margin: 50
@@ -169,14 +175,9 @@ const App = () => {
           const newList = userList.filter((listItem, listIndex) => listIndex !== removeIndex)
           setUserList(newList)
 
-          setModalOn(false)
-          setRemoveIndex(-1)
-      }}
-        handleClose={() => {
-
-          setModalOn(false)
-          setRemoveIndex(-1)
+          hideModal()
         }}
+        handleClose={hideModal}
       />
     </div>
   );
