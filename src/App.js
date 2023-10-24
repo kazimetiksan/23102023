@@ -165,15 +165,15 @@ const App = () => {
         title="Uyarı"
         body={`${userList[removeIndex]?.firstName} silinecektir, emin misiniz ?`}
         show={modalOn}
-        handleClose={(isConfirmed) => {
+        handleConfirm={() => {
+          const newList = userList.filter((listItem, listIndex) => listIndex !== removeIndex)
+          setUserList(newList)
 
-          if (isConfirmed) {
-            console.log('confirmed')
+          setModalOn(false)
+          setRemoveIndex(-1)
+      }}
+        handleClose={() => {
 
-            const newList = userList.filter((listItem, listIndex) => listIndex !== removeIndex)
-            setUserList(newList)
-          }
-          
           setModalOn(false)
           setRemoveIndex(-1)
         }}
