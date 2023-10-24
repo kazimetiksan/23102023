@@ -117,6 +117,10 @@ const App = () => {
                     key={index}
                     item={item}
                     index={index}
+                    onView={() => {
+
+                      console.log(`http://localhost:3000/view/${item._id} detay açılacak`)
+                    }}
                     onUpdate={() => {
 
                       rowUpdate(index)

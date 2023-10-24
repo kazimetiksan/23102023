@@ -4,7 +4,8 @@ const Row = ({
     item,
     index,
     onUpdate,
-    onRemove
+    onRemove,
+    onView
 }) => {
 
     return (
@@ -13,6 +14,9 @@ const Row = ({
             <td>{item.firstName}</td>
             <td>{item.lastName}</td>
             <td>{item.age}</td>
+            <td>
+                <Button variant="warning" title="Detaya Git" onClick={onView} />
+            </td>
             <td>
                 <Button title="Güncelle" onClick={onUpdate} />
             </td>
