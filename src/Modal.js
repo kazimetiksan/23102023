@@ -18,8 +18,12 @@ const Modal = ({
             </RBModal.Header>
             <RBModal.Body>{body}</RBModal.Body>
             <RBModal.Footer>
-                <Button variant="secondary" onClick={handleClose} title="Kapat" />
-                <Button variant="danger" onClick={handleClose} title="Sil" />
+                <Button variant="secondary" onClick={() => {
+                    handleClose(false)
+                }} title="Kapat" />
+                <Button variant="danger" onClick={() => {
+                    handleClose(true)
+                }} title="Sil" />
             </RBModal.Footer>
         </RBModal>
     )

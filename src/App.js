@@ -59,12 +59,12 @@ const App = () => {
 
   const rowUpdate = (index) => {
 
-      commonFunction(index)
+    commonFunction(index)
 
-      setUserInfo(userList[index])
-      setUpdateIndex(index)
+    setUserInfo(userList[index])
+    setUpdateIndex(index)
 
-      console.log(`${index} sıralı satır güncellenecek`)
+    console.log(`${index} sıralı satır güncellenecek`)
   }
 
   return (
@@ -95,9 +95,6 @@ const App = () => {
 
                       setModalOn(true)
                       setRemoveIndex(index)
-
-                      // const newList = userList.filter((listItem, listIndex) => listIndex !== index)
-                      // setUserList(newList)
                     }}
                   />
                 )
@@ -110,7 +107,7 @@ const App = () => {
         <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
 
           setInput('firstName', e.target.value)
-          
+
           // const firstName = e.target.value
           // setUserInfo({
           //   ...userInfo,
@@ -137,7 +134,7 @@ const App = () => {
               ...userList,
               userInfo
             ])
-  
+
             setUserInfo(templateInfo)
           } else {
 
@@ -155,7 +152,7 @@ const App = () => {
             })
 
             setUserList(newList)
-  
+
             setUserInfo(templateInfo)
 
             setUpdateIndex(-1)
@@ -164,14 +161,22 @@ const App = () => {
 
         }} />
       </div>
-      <Modal 
-        title="Uyarı" 
-        body={`${userList[removeIndex].firstName} silinecektir, emin misiniz ?`}
-        show={modalOn} 
-        handleClose={() => {
+      <Modal
+        title="Uyarı"
+        body={`${userList[removeIndex]?.firstName} silinecektir, emin misiniz ?`}
+        show={modalOn}
+        handleClose={(isConfirmed) => {
 
+          if (isConfirmed) {
+            console.log('confirmed')
+
+            const newList = userList.filter((listItem, listIndex) => listIndex !== removeIndex)
+            setUserList(newList)
+          }
+          
           setModalOn(false)
-        }} 
+          setRemoveIndex(-1)
+        }}
       />
     </div>
   );
