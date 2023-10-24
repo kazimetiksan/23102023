@@ -19,19 +19,12 @@ import {
     useNavigate
 } from 'react-router-dom'
 
-import {
-    useSelector
-} from 'react-redux'
-
-const Home = () => {
+const HomeV1 = () => {
 
     const navigate = useNavigate()
 
     // LOCAL STATE
-    // const [userList, setUserList] = useState([])
-
-    // REDUX STATE
-    const userList = useSelector(state => state.user)
+    const [userList, setUserList] = useState([])
   
     const templateInfo = {
       firstName: "",
@@ -51,7 +44,7 @@ const Home = () => {
   
           console.log('response', response.data)
   
-          // setUserList(response.data)
+          setUserList(response.data)
   
           // load end
           setLoading(false)
@@ -190,10 +183,10 @@ const Home = () => {
                   const newUser = response.data
                   console.log('new user added', newUser)
   
-                  // setUserList([
-                //     ...userList,
-                //     response.data
-                //   ])
+                  setUserList([
+                    ...userList,
+                    response.data
+                  ])
   
                   setLoading(false)
                 })
@@ -225,7 +218,7 @@ const Home = () => {
                     return item
                   })
   
-                  // setUserList(newList)
+                  setUserList(newList)
                   setLoading(false)
   
                   setUserInfo(templateInfo)
@@ -254,7 +247,7 @@ const Home = () => {
                 if (response.status === 200) {
   
                   const newList = userList.filter((listItem) => listItem._id !== userList[removeIndex]?._id)
-                  // setUserList(newList)
+                  setUserList(newList)
                 }
               })
               .catch((error) => {
@@ -270,4 +263,4 @@ const Home = () => {
     );
   }
 
-  export default Home
+  export default HomeV1
