@@ -6,8 +6,7 @@ import { useState, useEffect } from 'react'
 
 import {
   Form,
-  Table,
-  Spinner
+  Table
 } from 'react-bootstrap'
 
 import Row from './Row';
@@ -17,43 +16,26 @@ import {
   commonFunction
 } from './functions'
 
-import axios from 'axios';
+const AppV2 = () => {
 
-const App = () => {
-
-  const [userList, setUserList] = useState([])
+  const [userList, setUserList] = useState([{
+    firstName: "Kazım",
+    lastName: "Etiksan",
+    age: 33
+  }, {
+    firstName: "Mert",
+    lastName: "Şener",
+    age: 32
+  }, {
+    firstName: "Elif",
+    lastName: "Yavuz",
+    age: 43
+  }])
 
   const templateInfo = {
     firstName: "",
     lastName: "",
     age: ""
-  }
-
-  const loadData = () => {
-
-    const url = 'https://reactpm.azurewebsites.net/api/users'
-
-    // load start
-    setLoading(true)
-
-    axios.get(url)
-      .then((response) => {
-
-        console.log('response', response.data)
-
-        setUserList(response.data)
-
-        // load end
-        setLoading(false)
-
-        // başarılı cevap
-      })
-      .catch((error) => {
-
-        console.log('error', error)
-
-        // başarısız cevap
-      })
   }
 
   const [userInfo, setUserInfo] = useState(templateInfo)
@@ -63,15 +45,9 @@ const App = () => {
 
   const [modalOn, setModalOn] = useState(false)
 
-  const [isLoading, setLoading] = useState(false)
-
   useEffect(() => {
-    // console.log(userInfo)
+    console.log(userInfo)
   }, [userInfo])
-
-  useEffect(() => {
-    loadData()
-  }, [])
 
   const setInput = (key, value) => {
 
@@ -133,13 +109,6 @@ const App = () => {
           </tbody>
         </Table>
       </div>
-      {
-        isLoading && (
-          <div>
-            <Spinner animation="border" variant="primary" />
-          </div>
-        )
-      }
       <div>
         <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
 
@@ -214,4 +183,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default AppV2;
