@@ -5,14 +5,15 @@ import {
 const Button = ({
     title,
     onClick,
-    variant="secondary" // default value
+    variant="secondary", // default value,
+    disabled=false
 }) => {
 
     // Javascript ES6
     // Destructuring
 
     return (
-        <RBButton variant={variant} onClick={onClick}>{title}</RBButton>
+        <RBButton disabled={disabled} variant={variant} onClick={onClick}>{title}</RBButton>
     )
 }
 

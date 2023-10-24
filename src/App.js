@@ -160,19 +160,33 @@ const App = () => {
 
           setInput('age', e.target.value)
         }} />
-        <Button variant='primary' title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
+        <Button disabled={isLoading} variant='primary' title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
           // updateIndex kontrol
 
+          setLoading(true)
+
           if (updateIndex === -1) {
 
-            // EKLE
-            setUserList([
-              ...userList,
-              userInfo
-            ])
+            const url = 'https://reactpm.azurewebsites.net/api/user'
+            axios.post(url, userInfo)
+            .then((response) => {
 
-            setUserInfo(templateInfo)
+              const newUser = response.data
+              console.log('new user added', newUser)
+
+              setUserList([
+                ...userList,
+                response.data
+              ])
+
+              setLoading(false)
+            })
+            .catch((error) => {
+
+              console.log('new user NOT added', error)
+            })
+
           } else {
 
             // GÜNCELLE
