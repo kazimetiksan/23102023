@@ -191,22 +191,35 @@ const App = () => {
 
             // GÜNCELLE
 
-            const newList = userList.map((item, index) => {
+            const url = `https://reactpm.azurewebsites.net/api/user/${userList[updateIndex]?._id}`
+            axios.patch(url, userInfo)
+              .then((response) => {
 
-              // updateIndex sırasında eleman değişikliği
+                console.log('user updated', response.data)
 
-              if (updateIndex === index) {
-                return userInfo
-              }
+                // state güncelleme
 
-              return item
-            })
+                const newList = userList.map((item) => {
 
-            setUserList(newList)
+                  // updateIndex sırasında eleman değişikliği
 
-            setUserInfo(templateInfo)
+                  if (item._id === response.data._id) {
+                    return response.data
+                  }
 
-            setUpdateIndex(-1)
+                  return item
+                })
+
+                setUserList(newList)
+                setLoading(false)
+
+                setUserInfo(templateInfo)
+                setUpdateIndex(-1)
+              })
+              .catch((error) => {
+
+                console.log('update error', error)
+              })
           }
 
 
@@ -233,7 +246,7 @@ const App = () => {
 
             })
 
-            hideModal()
+          hideModal()
 
         }}
         handleClose={hideModal}
