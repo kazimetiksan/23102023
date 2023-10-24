@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap'
 
 import Row from './Row';
+import Modal from './Modal';
 
 import {
   commonFunction
@@ -40,6 +41,9 @@ const App = () => {
   const [userInfo, setUserInfo] = useState(templateInfo)
 
   const [updateIndex, setUpdateIndex] = useState(-1)
+  const [removeIndex, setRemoveIndex] = useState(-1)
+
+  const [modalOn, setModalOn] = useState(false)
 
   useEffect(() => {
     console.log(userInfo)
@@ -86,20 +90,14 @@ const App = () => {
                     onUpdate={() => {
 
                       rowUpdate(index)
-
-                      // setUserInfo(userList[index])
-                      // setUpdateIndex(index)
-
-                      // console.log(`${index} sıralı satır güncellenecek`)
                     }}
                     onRemove={() => {
 
-                      // index sıralı satır silinecek
-                      console.log(`${index} sıralı satır silinecek`)
+                      setModalOn(true)
+                      setRemoveIndex(index)
 
-                      const newList = userList.filter((listItem, listIndex) => listIndex !== index)
-
-                      setUserList(newList)
+                      // const newList = userList.filter((listItem, listIndex) => listIndex !== index)
+                      // setUserList(newList)
                     }}
                   />
                 )
@@ -166,6 +164,15 @@ const App = () => {
 
         }} />
       </div>
+      <Modal 
+        title="Uyarı" 
+        body={`${userList[removeIndex].firstName} silinecektir, emin misiniz ?`}
+        show={modalOn} 
+        handleClose={() => {
+
+          setModalOn(false)
+        }} 
+      />
     </div>
   );
 }
