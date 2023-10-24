@@ -15,8 +15,15 @@ import {
 import Row from './Row'
 import Button from './Button'
 
+import {
+    useNavigate
+} from 'react-router-dom'
+
 const Home = () => {
 
+    const navigate = useNavigate()
+
+    // LOCAL STATE
     const [userList, setUserList] = useState([])
   
     const templateInfo = {
@@ -114,6 +121,9 @@ const Home = () => {
                       onView={() => {
   
                         console.log(`http://localhost:3000/view/${item._id} detay açılacak`)
+
+                        const targetURL = `/view/${item._id}`
+                        navigate(targetURL)
                       }}
                       onUpdate={() => {
   
