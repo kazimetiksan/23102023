@@ -170,22 +170,22 @@ const App = () => {
 
             const url = 'https://reactpm.azurewebsites.net/api/user'
             axios.post(url, userInfo)
-            .then((response) => {
+              .then((response) => {
 
-              const newUser = response.data
-              console.log('new user added', newUser)
+                const newUser = response.data
+                console.log('new user added', newUser)
 
-              setUserList([
-                ...userList,
-                response.data
-              ])
+                setUserList([
+                  ...userList,
+                  response.data
+                ])
 
-              setLoading(false)
-            })
-            .catch((error) => {
+                setLoading(false)
+              })
+              .catch((error) => {
 
-              console.log('new user NOT added', error)
-            })
+                console.log('new user NOT added', error)
+              })
 
           } else {
 
@@ -217,10 +217,24 @@ const App = () => {
         body={`${userList[removeIndex]?.firstName} silinecektir, emin misiniz ?`}
         show={modalOn}
         handleConfirm={() => {
-          const newList = userList.filter((listItem, listIndex) => listIndex !== removeIndex)
-          setUserList(newList)
 
-          hideModal()
+          const url = `https://reactpm.azurewebsites.net/api/user/${userList[removeIndex]?._id}`
+
+          axios.delete(url)
+            .then((response) => {
+
+              if (response.status === 200) {
+
+                const newList = userList.filter((listItem) => listItem._id !== userList[removeIndex]?._id)
+                setUserList(newList)
+              }
+            })
+            .catch((error) => {
+
+            })
+
+            hideModal()
+
         }}
         handleClose={hideModal}
       />
