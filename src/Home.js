@@ -19,26 +19,22 @@ import {
     useNavigate
 } from 'react-router-dom'
 
-import {
-    useSelector,
-    useDispatch
-} from 'react-redux'
+import { getAll, addNew } from './redux/dispatch' // DISPATCH
 
-import { setAll, add } from './redux/userSlice'
-
-import { getAll, addNew } from './redux/dispatch'
+import { useRedux } from './redux/hooks' // SELECTOR
 
 const Home = () => {
 
     const navigate = useNavigate()
 
-    const dispatch = useDispatch()
-
     // LOCAL STATE
     // const [userList, setUserList] = useState([])
 
     // REDUX STATE
-    const userList = useSelector(state => state.user)
+    // const userList = useSelector(state => state.user)
+
+    // REDUX HOOK
+    const {users:userList} = useRedux()
   
     const templateInfo = {
       firstName: "",
