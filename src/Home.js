@@ -52,7 +52,10 @@ const Home = () => {
 
         getAll({
             callback: () => {
-                setLoading(false)
+
+                setTimeout(() => {
+                    setLoading(false)
+                }, 2000)
             }
         })
 
