@@ -20,12 +20,17 @@ import {
 } from 'react-router-dom'
 
 import {
-    useSelector
+    useSelector,
+    useDispatch
 } from 'react-redux'
+
+import { setAll, add, getAll } from './redux/userSlice'
 
 const Home = () => {
 
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     // LOCAL STATE
     // const [userList, setUserList] = useState([])
@@ -40,30 +45,10 @@ const Home = () => {
     }
   
     const loadData = () => {
-  
-      const url = 'https://reactpm.azurewebsites.net/api/users'
-  
-      // load start
-      setLoading(true)
-  
-      axios.get(url)
-        .then((response) => {
-  
-          console.log('response', response.data)
-  
-          // setUserList(response.data)
-  
-          // load end
-          setLoading(false)
-  
-          // başarılı cevap
-        })
-        .catch((error) => {
-  
-          console.log('error', error)
-  
-          // başarısız cevap
-        })
+
+        dispatch(
+            getAll()
+        )
     }
   
     const [userInfo, setUserInfo] = useState(templateInfo)
@@ -177,11 +162,11 @@ const Home = () => {
           }} />
           <Button disabled={isLoading} variant='primary' title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
   
-            // updateIndex kontrol
-  
             setLoading(true)
   
             if (updateIndex === -1) {
+
+                // EKLE
   
               const url = 'https://reactpm.azurewebsites.net/api/user'
               axios.post(url, userInfo)
@@ -189,11 +174,12 @@ const Home = () => {
   
                   const newUser = response.data
                   console.log('new user added', newUser)
-  
-                  // setUserList([
-                //     ...userList,
-                //     response.data
-                //   ])
+
+                    dispatch(
+                        add(
+                            newUser
+                        )
+                    )
   
                   setLoading(false)
                 })
