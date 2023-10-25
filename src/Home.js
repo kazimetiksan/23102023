@@ -46,9 +46,16 @@ const Home = () => {
   
     const loadData = () => {
 
+        setLoading(true)
+
         dispatch(
-            getAll()
+            getAll({
+                callback: () => {
+                    setLoading(false)
+                }
+            })
         )
+
     }
   
     const [userInfo, setUserInfo] = useState(templateInfo)

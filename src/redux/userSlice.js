@@ -44,6 +44,10 @@ export const getAll = createAsyncThunk('getAll', (params, {getState, dispatch}) 
 
   console.log('getAll params', params)
 
+  const {
+    callback
+  } = params
+
   const url = 'https://reactpm.azurewebsites.net/api/users'
   
   axios.get(url)
@@ -56,10 +60,13 @@ export const getAll = createAsyncThunk('getAll', (params, {getState, dispatch}) 
                 response.data
             )
         )
+
+        callback()
     })
     .catch((error) => {
 
       console.log('error', error)
+      callback()
     })
 })
 
