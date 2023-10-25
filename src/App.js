@@ -2,6 +2,8 @@ import Home from './Home';
 import Detail from './Detail';
 import NotFound from './NotFound';
 
+import SignUp from './SignUp';
+
 import {
   BrowserRouter,
   Route,
@@ -22,6 +24,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/view/:_id' element={<Detail />} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

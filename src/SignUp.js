@@ -6,6 +6,8 @@ import { useState } from 'react'
 
 import Button from './Button'
 
+import { signUp } from './redux/dispatch'
+
 const SignUp = () => {
 
     const templateInfo = {
@@ -27,7 +29,9 @@ const SignUp = () => {
     }
 
     return (
-        <>
+        <div style={{
+            margin: 50
+        }}>
             <Form.Control placeholder='Email' value={userInfo.email} onChange={(e) => {
 
                 setInput('email', e.target.value)
@@ -51,8 +55,15 @@ const SignUp = () => {
              <Button variant='primary' title="Kaydet" onClick={() => {
                 
                 console.log('signup', userInfo)
+
+                signUp({
+                    callback: () => {
+
+                    },
+                    userInfo
+                })
              }} />
-        </>
+        </div>
     )
 }
 

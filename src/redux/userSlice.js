@@ -181,4 +181,29 @@ export const removeUser = createAsyncThunk('removeUser', (params, {getState, dis
     })
 })
 
+export const signUp = createAsyncThunk('signUp', (params, {getState, dispatch}) => {
+
+  console.log('signUp params', params)
+
+  const {
+    callback,
+    userInfo
+  } = params
+
+  const url = '/api/signup'
+  
+  axios.post(url, userInfo)
+    .then((response) => {
+
+        console.log('signup response', response)
+
+        callback()
+    })
+    .catch((error) => {
+
+      console.log('error', error)
+      callback()
+    })
+})
+
 export default userSlice.reducer

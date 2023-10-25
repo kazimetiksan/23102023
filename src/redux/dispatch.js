@@ -6,3 +6,5 @@ export const getAll = params => store.dispatch(userSlice.getAll(params))
 export const addNew = params => store.dispatch(userSlice.addNew(params))
 export const updateUser = params => store.dispatch(userSlice.updateUser(params))
 export const removeUser = params => store.dispatch(userSlice.removeUser(params))
+
+export const signUp = params => store.dispatch(userSlice.signUp(params))
