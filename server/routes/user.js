@@ -92,7 +92,7 @@ router.post('/user', async (req, res) => {
 router.get('/users', async (req, res) => {
 
     const users = await User.find({})
-    console.log(users)
+    console.log('db users', users)
     res.send(users)
 });
 

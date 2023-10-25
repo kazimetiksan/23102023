@@ -3,13 +3,12 @@ import {
     useEffect
 } from 'react'
 
-import axios from 'axios'
+import Modal from './Modal'
 
 import {
     Table,
     Spinner,
-    Form,
-    Modal
+    Form
 } from 'react-bootstrap'
 
 import Row from './Row'
@@ -22,7 +21,8 @@ import {
 import {
     getAll,
     addNew,
-    updateUser
+    updateUser,
+    removeUser
 } from './redux/dispatch' // DISPATCH
 
 import { useRedux } from './redux/hooks' // SELECTOR
@@ -207,20 +207,12 @@ const Home = () => {
                 show={modalOn}
                 handleConfirm={() => {
 
-                    const url = `https://reactpm.azurewebsites.net/api/user/${userList[removeIndex]?._id}`
+                    removeUser({
+                        callback: () => {
 
-                    axios.delete(url)
-                        .then((response) => {
-
-                            if (response.status === 200) {
-
-                                const newList = userList.filter((listItem) => listItem._id !== userList[removeIndex]?._id)
-                                // setUserList(newList)
-                            }
-                        })
-                        .catch((error) => {
-
-                        })
+                        },
+                        _id: userList[removeIndex]?._id
+                    })
 
                     hideModal()
 

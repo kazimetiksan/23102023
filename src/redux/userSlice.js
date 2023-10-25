@@ -32,9 +32,6 @@ const userSlice = createSlice({
       },
       update: (state, {payload}) => {
 
-        console.log('state', state)
-        console.log('payload', payload)
-
         // state[payload.index] = payload.user
 
         return state.map((item) => {
@@ -45,6 +42,12 @@ const userSlice = createSlice({
 
           return item
         })
+      },
+      remove: (state, {payload:_id}) => {
+
+        // payload = _id
+
+        return state.filter(item => item._id !== _id)
       }
     }
 })
@@ -52,7 +55,8 @@ const userSlice = createSlice({
 export const {
   setAll,
   add,
-  update
+  update,
+  remove
 } = userSlice.actions
 
 // ASYNC
@@ -96,7 +100,7 @@ export const addNew = createAsyncThunk('addNew', (params, {getState, dispatch}) 
     userInfo
   } = params
 
-  const url = 'https://reactpm.azurewebsites.net/api/user'
+  const url = '/api/user'
   
   axios.post(url, userInfo)
     .then((response) => {
@@ -126,7 +130,7 @@ export const updateUser = createAsyncThunk('updateUser', (params, {getState, dis
     _id
   } = params
 
-  const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+  const url = `/api/user/${_id}`
   
   axios.patch(url, userInfo)
     .then((response) => {
@@ -136,6 +140,37 @@ export const updateUser = createAsyncThunk('updateUser', (params, {getState, dis
                 response.data
             )
         )
+
+        callback()
+    })
+    .catch((error) => {
+
+      console.log('error', error)
+      callback()
+    })
+})
+
+export const removeUser = createAsyncThunk('removeUser', (params, {getState, dispatch}) => {
+
+  console.log('removeUser params', params)
+
+  const {
+    callback,
+    _id
+  } = params
+
+  const url = `/api/user/${_id}`
+  
+  axios.delete(url)
+    .then((response) => {
+
+      if (response.status === 200) {
+        dispatch(
+          remove(
+            _id
+          )
+        )
+      }
 
         callback()
     })
