@@ -29,13 +29,30 @@ const userSlice = createSlice({
           ...state,
           payload
         ]
+      },
+      update: (state, {payload}) => {
+
+        console.log('state', state)
+        console.log('payload', payload)
+
+        // state[payload.index] = payload.user
+
+        return state.map((item) => {
+
+          if (item._id === payload._id) {
+            return payload
+          }
+
+          return item
+        })
       }
     }
 })
 
 export const {
   setAll,
-  add
+  add,
+  update
 } = userSlice.actions
 
 // ASYNC
@@ -86,6 +103,36 @@ export const addNew = createAsyncThunk('addNew', (params, {getState, dispatch}) 
 
         dispatch(
             add(
+                response.data
+            )
+        )
+
+        callback()
+    })
+    .catch((error) => {
+
+      console.log('error', error)
+      callback()
+    })
+})
+
+export const updateUser = createAsyncThunk('updateUser', (params, {getState, dispatch}) => {
+
+  console.log('updateUser params', params)
+
+  const {
+    callback,
+    userInfo,
+    _id
+  } = params
+
+  const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+  
+  axios.patch(url, userInfo)
+    .then((response) => {
+
+        dispatch(
+            update(
                 response.data
             )
         )
