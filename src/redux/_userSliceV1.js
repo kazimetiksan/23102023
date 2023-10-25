@@ -5,27 +5,36 @@ import {
 
 import axios from 'axios'
 
-const initialState = {
-  list: [],
-  profile: {},
-  xauth: undefined
-}
+const initialState = []
 
-const userSlice = createSlice({
+const userSliceV1 = createSlice({
     name: 'user',
     initialState,
     reducers: {
       setAll: (state, {payload}) => {
 
-        state.list = payload
+        // senkron
+
+        console.log('state', state)
+        console.log('payload', payload)
+
+        return payload
       },
       add: (state, {payload}) => {
 
-        state.list.push(payload)
+        console.log('state', state)
+        console.log('payload', payload)
+
+        return [
+          ...state,
+          payload
+        ]
       },
       update: (state, {payload}) => {
 
-        state.list = state.list.map((item) => {
+        // state[payload.index] = payload.user
+
+        return state.map((item) => {
 
           if (item._id === payload._id) {
             return payload
@@ -36,17 +45,9 @@ const userSlice = createSlice({
       },
       remove: (state, {payload:_id}) => {
 
-        state.list = state.list.filter(item => item._id !== _id)
-      },
-      setProfile: (state, {payload}) => {
+        // payload = _id
 
-        const {
-          profile,
-          xauth
-        } = payload
-
-        state.profile = profile
-        state.xauth = xauth
+        return state.filter(item => item._id !== _id)
       }
     }
 })
@@ -55,9 +56,8 @@ export const {
   setAll,
   add,
   update,
-  remove,
-  setProfile
-} = userSlice.actions
+  remove
+} = userSliceV1.actions
 
 // ASYNC
 
@@ -222,15 +222,6 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
 
         console.log('signin response', response)
 
-        const profile = response.data
-        const xauth = response.headers.xauth
-
-        dispatch(
-          setProfile({
-            profile, xauth
-          })
-        )
-
         callback()
     })
     .catch((error) => {
@@ -240,4 +231,4 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
     })
 })
 
-export default userSlice.reducer
+export default userSliceV1.reducer

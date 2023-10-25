@@ -3,6 +3,7 @@ import Detail from './Detail';
 import NotFound from './NotFound';
 
 import SignUp from './SignUp';
+import SignIn from './SignIn';
 
 import {
   BrowserRouter,
@@ -25,6 +26,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/view/:_id' element={<Detail />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path='/signin' element={<SignIn />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

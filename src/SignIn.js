@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 import Button from './Button'
 
-import {  } from './redux/dispatch'
+import { signIn } from './redux/dispatch'
 
 const SignIn = () => {
 
@@ -39,7 +39,12 @@ const SignIn = () => {
             }} />
              <Button variant='primary' title="Giriş Yap" onClick={() => {
                 
-                console.log('signup', userInfo)
+                signIn({
+                    callback: () => {
+
+                    },
+                    userInfo
+                })
              }} />
         </div>
     )
