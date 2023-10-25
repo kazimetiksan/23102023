@@ -70,4 +70,33 @@ export const getAll = createAsyncThunk('getAll', (params, {getState, dispatch}) 
     })
 })
 
+export const addNew = createAsyncThunk('addNew', (params, {getState, dispatch}) => {
+
+  console.log('addNew params', params)
+
+  const {
+    callback,
+    userInfo
+  } = params
+
+  const url = 'https://reactpm.azurewebsites.net/api/user'
+  
+  axios.post(url, userInfo)
+    .then((response) => {
+
+        dispatch(
+            add(
+                response.data
+            )
+        )
+
+        callback()
+    })
+    .catch((error) => {
+
+      console.log('error', error)
+      callback()
+    })
+})
+
 export default userSlice.reducer

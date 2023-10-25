@@ -24,7 +24,9 @@ import {
     useDispatch
 } from 'react-redux'
 
-import { setAll, add, getAll } from './redux/userSlice'
+import { setAll, add } from './redux/userSlice'
+
+import { getAll, addNew } from './redux/dispatch'
 
 const Home = () => {
 
@@ -48,13 +50,11 @@ const Home = () => {
 
         setLoading(true)
 
-        dispatch(
-            getAll({
-                callback: () => {
-                    setLoading(false)
-                }
-            })
-        )
+        getAll({
+            callback: () => {
+                setLoading(false)
+            }
+        })
 
     }
   
@@ -175,25 +175,14 @@ const Home = () => {
 
                 // EKLE
   
-              const url = 'https://reactpm.azurewebsites.net/api/user'
-              axios.post(url, userInfo)
-                .then((response) => {
-  
-                  const newUser = response.data
-                  console.log('new user added', newUser)
+                addNew({
+                    callback: () => {
+                        setLoading(false)
+                        setUserInfo(templateInfo)
+                    },
+                    userInfo
+                })
 
-                    dispatch(
-                        add(
-                            newUser
-                        )
-                    )
-  
-                  setLoading(false)
-                })
-                .catch((error) => {
-  
-                  console.log('new user NOT added', error)
-                })
   
             } else {
   
