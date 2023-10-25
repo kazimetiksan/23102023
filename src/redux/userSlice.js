@@ -231,12 +231,12 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
           })
         )
 
-        callback()
+        callback(true)
     })
     .catch((error) => {
 
       console.log('error', error)
-      callback()
+      callback(false)
     })
 })
 

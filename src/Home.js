@@ -38,7 +38,11 @@ const Home = () => {
     // const userList = useSelector(state => state.user)
 
     // REDUX HOOK
-    const { users: userList } = useRedux()
+    const { 
+        users: userList,
+        isSignedIn, 
+        profile
+    } = useRedux()
 
     const templateInfo = {
         firstName: "",
@@ -104,6 +108,13 @@ const Home = () => {
         <div style={{
             margin: 50
         }}>
+            {
+                isSignedIn() && (
+                    <div>
+                        Merhaba {profile.firstName} {profile.lastName}
+                    </div>
+                )
+            }
             <div>
                 <Table>
                     <thead>

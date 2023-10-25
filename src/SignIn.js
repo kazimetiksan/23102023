@@ -8,7 +8,13 @@ import Button from './Button'
 
 import { signIn } from './redux/dispatch'
 
+import {
+    useNavigate
+} from 'react-router-dom'
+
 const SignIn = () => {
+
+    const navigate = useNavigate()
 
     const templateInfo = {
         email: "",
@@ -40,8 +46,12 @@ const SignIn = () => {
              <Button variant='primary' title="Giriş Yap" onClick={() => {
                 
                 signIn({
-                    callback: () => {
+                    callback: (isDone) => {
+                        // navigate home
 
+                        if (isDone) {
+                            navigate("/")
+                        }
                     },
                     userInfo
                 })
