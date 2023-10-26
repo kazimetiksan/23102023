@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useRedux } from "./redux/hooks"
 
 import {
@@ -6,13 +7,15 @@ import {
 
 const OnlyVerified = () => {
 
-    const navigte = useNavigate()
+    const navigate = useNavigate()
 
     const {isVerified} = useRedux()
 
-    if (!isVerified()) {
-        navigte('/')
-    }
+    useEffect(() => {
+        if (!isVerified()) {
+            navigate('/')
+        }
+    }, [])
 
     return (
         <></>

@@ -7,6 +7,10 @@ import SignIn from './SignIn';
 
 import OnlyVerified from './OnlyVerified';
 
+import Header from './Header';
+
+import Verify from './Verify';
+
 import {
   BrowserRouter,
   Route,
@@ -24,12 +28,14 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/view/:_id' element={<Detail />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/only' element={<OnlyVerified />} />
+          <Route path='/verify' element={<Verify />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
