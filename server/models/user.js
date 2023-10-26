@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs')
 
 const secretWord = 's@me!secret'
 
-
 const UserSchema = new mongoose.Schema({
   firstName: {
     type: String
@@ -24,6 +23,10 @@ const UserSchema = new mongoose.Schema({
   },
   xauth: {
     type: String
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
   },
   createdAt: {
     type: Date,
@@ -147,7 +150,7 @@ UserSchema.methods.toJSON = function () {
 
   const oObject = o.toObject();
 
-  return _.pick(oObject, ['_id', 'firstName', 'lastName', 'age', 'createdAt', 'email']);
+  return _.pick(oObject, ['_id', 'firstName', 'lastName', 'age', 'createdAt', 'email', 'isVerified']);
 };
 
 const User = mongoose.model('User', UserSchema);
