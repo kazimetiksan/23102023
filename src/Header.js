@@ -2,6 +2,8 @@ import {
     Link
 } from 'react-router-dom'
 
+import { signOut } from './redux/dispatch'
+
 const Header = () => {
 
     return (
@@ -15,7 +17,18 @@ const Header = () => {
             <Link to="/">Home</Link>
             <Link to="/only">Only</Link>
             <Link to="/signin">Sign In</Link>
-            <Link to="/signup">Sign Out</Link>
+            <Link to="#" onClick={(e) => {
+                
+                e.preventDefault()
+
+                signOut({
+                    callback: () => {
+                        
+                    }
+                })
+                
+                console.log('signout')
+            }}>Sign Out</Link>
         </div>
     )
 }

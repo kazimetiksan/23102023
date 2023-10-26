@@ -42,6 +42,7 @@ const Home = () => {
 
     if (xauth && profile === undefined) {
 
+        console.log('calling me')
         getMe({
             callback: () => {
 

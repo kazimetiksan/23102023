@@ -38,6 +38,14 @@ router.get('/verify', async (req, res) => {
 
 })
 
+router.get('/signout', authenticate, async (req, res) => {
+
+    req.user.xauth = ""
+    await req.user.save()
+
+    res.sendStatus(200)
+})
+
 router.get('/me', authenticate, async (req, res) => {
 
     res.send(req.user)

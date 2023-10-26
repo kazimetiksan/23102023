@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const initialState = {
   list: [],
-  profile: undefined  ,
+  profile: undefined,
   xauth: undefined
 }
 
@@ -47,6 +47,13 @@ const userSlice = createSlice({
 
         state.profile = profile
         state.xauth = xauth
+      },
+      signUserOut: (state, {payload}) => {
+
+        state.profile = undefined
+        state.xauth = undefined
+
+        sessionStorage.removeItem('xauth')
       }
     }
 })
@@ -56,7 +63,8 @@ export const {
   add,
   update,
   remove,
-  setProfile
+  setProfile,
+  signUserOut
 } = userSlice.actions
 
 // ASYNC
@@ -269,6 +277,46 @@ export const getMe = createAsyncThunk('getMe', (params, {getState, dispatch}) =>
             profile, xauth
           })
         )
+
+        callback(true)
+    })
+    .catch((error) => {
+
+      console.log('error', error)
+      callback(false)
+    })
+})
+
+export const signOut = createAsyncThunk('signOut', (params, {getState, dispatch}) => {
+
+  console.log('signOut params', params)
+
+  const state = getState()
+  console.log('current state', state)
+
+  const xauth = state.user.xauth
+
+  const {
+    callback
+  } = params
+
+  const url = '/api/signout'
+  
+  axios.get(url, {
+    headers: {
+      xauth
+    }
+  })
+    .then((response) => {
+
+        console.log('signOut response', response)
+
+        if (response.status === 200) {
+
+          dispatch(
+            signUserOut()
+          )
+        }
 
         callback(true)
     })
