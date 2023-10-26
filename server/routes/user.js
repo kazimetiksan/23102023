@@ -7,6 +7,25 @@ const { User } = require('../models/user')
 
 const _ = require('lodash');
 
+router.get('/checkVerification', async (req, res) => {
+
+    const xauth = req.header('xauth')
+    const found = await User.findByToken(xauth)
+
+    let status = 404
+    if (found) {
+
+        status = found.isVerified ? 200 : 403
+    }
+
+    res.sendStatus(status)
+  })
+
+router.get('/verify', authenticate, async (req, res) => {
+
+    res.send(req.user)
+})
+
 router.get('/me', authenticate, async (req, res) => {
 
     res.send(req.user)

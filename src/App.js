@@ -35,7 +35,7 @@ const App = () => {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/only' element={<OnlyVerified />} />
-          <Route path='/verify' element={<Verify />} />
+          <Route path='/verify/:token' element={<Verify />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
