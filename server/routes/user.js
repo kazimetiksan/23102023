@@ -10,7 +10,7 @@ const _ = require('lodash');
 router.get('/checkVerification', async (req, res) => {
 
     const xauth = req.header('xauth')
-    const found = await User.findByToken(xauth)
+    const found = await User.findOne({xauth})
 
     let status = 404
     if (found) {
