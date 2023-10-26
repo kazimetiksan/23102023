@@ -12,7 +12,7 @@ export const useRedux = () => {
 
     const isSignedIn = () => xauth !== undefined
 
-    const isVerified = () => profile.isVerified
+    const isVerified = () => profile?.isVerified
 
     return {
         users,

@@ -18,7 +18,11 @@ const OnlyVerified = () => {
     }, [])
 
     return (
-        <></>
+        <div style={{
+            margin: 50
+        }}>
+            Only Verified
+        </div>
     )
 }
 

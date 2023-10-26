@@ -21,9 +21,21 @@ router.get('/checkVerification', async (req, res) => {
     res.sendStatus(status)
   })
 
-router.get('/verify', authenticate, async (req, res) => {
+router.get('/verify', async (req, res) => {
 
-    res.send(req.user)
+    const xauth = req.header('xauth')
+    const found = await User.findOne({xauth})
+
+    if (found) {
+        found.isVerified = true
+        await found.save()
+
+        res.sendStatus(202)
+    } else {
+
+        res.sendStatus(404)
+    }
+
 })
 
 router.get('/me', authenticate, async (req, res) => {
