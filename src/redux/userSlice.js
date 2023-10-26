@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const initialState = {
   list: [],
-  profile: {},
+  profile: undefined  ,
   xauth: undefined
 }
 
@@ -224,6 +224,45 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
 
         const profile = response.data
         const xauth = response.headers.xauth
+
+        sessionStorage.setItem('xauth', xauth)
+
+        dispatch(
+          setProfile({
+            profile, xauth
+          })
+        )
+
+        callback(true)
+    })
+    .catch((error) => {
+
+      console.log('error', error)
+      callback(false)
+    })
+})
+
+export const getMe = createAsyncThunk('getMe', (params, {getState, dispatch}) => {
+
+  console.log('getMe params', params)
+
+  const {
+    callback,
+    xauth
+  } = params
+
+  const url = '/api/me'
+  
+  axios.get(url, {
+    headers: {
+      xauth
+    }
+  })
+    .then((response) => {
+
+        console.log('getMe response', response.data)
+
+        const profile = response.data
 
         dispatch(
           setProfile({

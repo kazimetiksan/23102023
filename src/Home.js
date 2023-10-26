@@ -22,12 +22,33 @@ import {
     getAll,
     addNew,
     updateUser,
-    removeUser
+    removeUser,
+    getMe
 } from './redux/dispatch' // DISPATCH
 
 import { useRedux } from './redux/hooks' // SELECTOR
 
 const Home = () => {
+
+    const xauth = sessionStorage.getItem('xauth')
+    console.log('home xauth', xauth)
+
+    // REDUX HOOK
+    const { 
+        users: userList,
+        isSignedIn, 
+        profile
+    } = useRedux()
+
+    if (xauth && profile === undefined) {
+
+        getMe({
+            callback: () => {
+
+            },
+            xauth
+        })
+    }
 
     const navigate = useNavigate()
 
@@ -36,13 +57,6 @@ const Home = () => {
 
     // REDUX STATE
     // const userList = useSelector(state => state.user)
-
-    // REDUX HOOK
-    const { 
-        users: userList,
-        isSignedIn, 
-        profile
-    } = useRedux()
 
     const templateInfo = {
         firstName: "",
@@ -57,9 +71,9 @@ const Home = () => {
         getAll({
             callback: () => {
 
-                setTimeout(() => {
+                // setTimeout(() => {
                     setLoading(false)
-                }, 2000)
+                // }, 2000)
             }
         })
 
